@@ -96,11 +96,11 @@ namespace WindowsFormsApplication1
             }
             CPU.Text = "Processor Time : " + pcCpu.NextValue().ToString("0.00") + " %";
 
-            MEM.Text = "Memory Free : " + pcMem.NextValue().ToString("0.00") + " MBytes";
+            MEM.Text = "Memory Free : " + pcMem.NextValue().ToString("#,##0") + " MBytes";
 
             Disk.Text = "PhysicalDisk : " + pcDisk.NextValue().ToString("0.00") + " %";
 
-            Net.Text = "Network Interface : " + pcNW.NextValue().ToString("0.00") + " Byte Total/sec";
+            Net.Text = "Network Interface : " + pcNW.NextValue().ToString("#,##0") + " Bytes Total/sec";
 
             Time.Text = "Date : " + DateTime.Now.ToString("yy/MM/dd HH:mm:ss");
 
