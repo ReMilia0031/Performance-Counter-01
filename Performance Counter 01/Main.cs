@@ -7,7 +7,7 @@ using System.Drawing;
 namespace WindowsFormsApplication1
 {
 
-   public partial class Main : Form
+    public partial class Main : Form
     {
         private PerformanceCounter pcCpuInfo;
         private PerformanceCounter pcCpu;
@@ -31,7 +31,7 @@ namespace WindowsFormsApplication1
         private void Form1_Load(object sender, EventArgs e)
         {
             // NICの種類 "Ethernet" と "Wireless80211" をコンボボックスに追加
-            // Virtual が選択されると死ぬ
+            // パフォーマンスカウンタがNDISとVirtualなんちゃらってのが対応してないらしいから追加しない
             NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
             foreach (NetworkInterface adapter in interfaces)
             {
@@ -40,6 +40,11 @@ namespace WindowsFormsApplication1
                 string Descrip = adapter.Description.ToString();
                 if (typeName == "Ethernet" || typeName == "Wireless80211")
                 {
+                    if (Descrip.Contains("NDIS") || Descrip.Contains("Virtual"))
+                    {
+                        continue;
+                    }
+
                     NIC_ListBox.Items.Add(string.Format(adapter.Description));
                 }
             }
@@ -87,8 +92,15 @@ namespace WindowsFormsApplication1
         //ラベル
         private void RefreshLabels()
         {
-            CPUInfo.Text = "Processor Freq : " + pcCpuInfo.NextValue().ToString("0.00") + " MHz";
-
+            //Freqの値が0だった場合N/Aと表示 
+            if (pcCpuInfo.NextValue() != 0)
+            {
+                CPUInfo.Text = "Processor Freq : " + pcCpuInfo.NextValue().ToString("0.00") + " MHz";
+            }
+            else
+            {
+                CPUInfo.Text = "Processor Freq : N/A";
+            }
             CPU.Text = "Processor Time : " + pcCpu.NextValue().ToString("0.00") + " %";
 
             MEM.Text = "Memory Free : " + pcMem.NextValue().ToString("0.00") + " MBytes";
@@ -107,16 +119,28 @@ namespace WindowsFormsApplication1
             string catNW = "Network Interface";
             string countNW = "Bytes Total/sec";
             string instanceNW = NIC_ListBox.SelectedItem.ToString();
-            pcNW = new PerformanceCounter(catNW, countNW, instanceNW);
+            //インスタンスになかった場合に問い合わせメッセージ表示
+            var pcc = new PerformanceCounterCategory("Network Interface");
+            if (pcc.InstanceExists(NIC_ListBox.SelectedItem.ToString()))
+            {
+                pcNW = new PerformanceCounter(catNW, countNW, instanceNW);
+            }
+            else
+            {
+                MessageBox.Show("インスタンスが指定したカテゴリにありません",
+                 "エラー",
+                 MessageBoxButtons.OK,
+                 MessageBoxIcon.Asterisk);
+            }
         }
 
         // フォントの設定
         private FontDialog ShowFontDialog()
-        {            
+        {
             FontDialog fd = new FontDialog();
 
             fd.Font = Font;
-            fd.Color = ForeColor;            
+            fd.Color = ForeColor;
             fd.MaxSize = 20;
             fd.MinSize = 10;
             fd.FontMustExist = true;
@@ -220,7 +244,7 @@ namespace WindowsFormsApplication1
         private void Interval_TextChanged(object sender, EventArgs e)
         {
             int i;
-            if (int.TryParse(Interval.Text,out i))
+            if (int.TryParse(Interval.Text, out i))
             {
                 timer1.Interval = i > 0 ? i : 1;
             }
@@ -270,7 +294,7 @@ namespace WindowsFormsApplication1
                 Trans_box.ForeColor = Color.FromKnownColor(KnownColor.ControlText);
             }
         }
-        
+
         //最前面表示
         private void ForeGround_box_CheckedChanged(object sender, EventArgs e)
         {
@@ -284,7 +308,7 @@ namespace WindowsFormsApplication1
                 TopMost = false;
             }
         }
-        
+
         // 項目マウスドラッグで移動
         private Point mousePoint;
         //押された時
@@ -307,5 +331,5 @@ namespace WindowsFormsApplication1
             }
         }
 
-   }
+    }
 }
