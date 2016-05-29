@@ -3,6 +3,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Drawing;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WindowsFormsApplication1
 {
@@ -14,6 +16,7 @@ namespace WindowsFormsApplication1
         private PerformanceCounter pcMem;
         private PerformanceCounter pcDisk;
         private PerformanceCounter pcNW;
+        private PerformanceCounter[] pcNWs;
 
         public Main()
         {
@@ -32,21 +35,11 @@ namespace WindowsFormsApplication1
         {
             // NICの種類 "Ethernet" と "Wireless80211" をコンボボックスに追加
             // パフォーマンスカウンタがNDISとVirtualなんちゃらってのが対応してないらしいから追加しない
-            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
-            foreach (NetworkInterface adapter in interfaces)
+            pcNWs = CreateNetworkCounters("Bytes Total/sec");
+            foreach (PerformanceCounter nw in pcNWs)
             {
-                Console.WriteLine(adapter.Description);
-                string typeName = adapter.NetworkInterfaceType.ToString();
-                string Descrip = adapter.Description.ToString();
-                if (typeName == "Ethernet" || typeName == "Wireless80211")
-                {
-                    if (Descrip.Contains("NDIS") || Descrip.Contains("Virtual"))
-                    {
-                        continue;
-                    }
-
-                    NIC_ListBox.Items.Add(string.Format(adapter.Description));
-                }
+                string name = nw.InstanceName;
+                NIC_ListBox.Items.Add(nw.InstanceName);
             }
 
             NIC_ListBox.SelectedIndex = 0;
@@ -116,22 +109,7 @@ namespace WindowsFormsApplication1
         // コンボボックスで選択したNICを表示に反映するアレ
         private void NIC_ListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string catNW = "Network Interface";
-            string countNW = "Bytes Total/sec";
-            string instanceNW = NIC_ListBox.SelectedItem.ToString();
-            //インスタンスになかった場合に問い合わせメッセージ表示
-            var pcc = new PerformanceCounterCategory("Network Interface");
-            if (pcc.InstanceExists(NIC_ListBox.SelectedItem.ToString()))
-            {
-                pcNW = new PerformanceCounter(catNW, countNW, instanceNW);
-            }
-            else
-            {
-                MessageBox.Show("インスタンスが指定したカテゴリにありません",
-                 "エラー",
-                 MessageBoxButtons.OK,
-                 MessageBoxIcon.Asterisk);
-            }
+            pcNW = pcNWs.Single((x) => { return x.InstanceName == NIC_ListBox.SelectedItem.ToString(); });
         }
 
         // フォントの設定
@@ -152,6 +130,32 @@ namespace WindowsFormsApplication1
             fd.ShowDialog();
 
             return fd;
+        }
+
+        private PerformanceCounter[] CreateNetworkCounters(string counterName)
+        {
+            var ret = new List<PerformanceCounter>();
+
+            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+
+            var pcc = new PerformanceCounterCategory("Network Interface");
+            foreach (string name in pcc.GetInstanceNames())
+            {
+                if (!interfaces.Any((x) => { return (x.Description == name); }))
+                {
+                    continue;
+                }
+
+                if (!interfaces.Any((x) => { return (x.NetworkInterfaceType == NetworkInterfaceType.Ethernet || x.NetworkInterfaceType == NetworkInterfaceType.Wireless80211); }))
+                {
+                    continue;
+                }
+
+                var pc = new PerformanceCounter("Network Interface", counterName, name);
+                ret.Add(pc);
+            }
+
+            return ret.ToArray();
         }
 
         //ボタンをクリックした時にフォントダイアログを表示して変更内容をラベルに反映
