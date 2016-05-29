@@ -30,6 +30,38 @@ namespace WindowsFormsApplication1
             Net.ForeColor = Color.FromArgb(0x3f, 0x3f, 0xff);
             Time.ForeColor = Color.FromArgb(0x3f, 0xff, 0xff);
         }
+        //ネットワークアダプタのふるい分け
+        private PerformanceCounter[] CreateNetworkCounters(string counterName)
+        {
+            var ret = new List<PerformanceCounter>();
+
+            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+            // DEBUG
+            foreach (var adapter in interfaces)
+            {
+                Console.WriteLine(adapter.Description);
+            }
+
+            var pcc = new PerformanceCounterCategory("Network Interface");
+            foreach (string name in pcc.GetInstanceNames())
+            {
+                if (!interfaces.Any((x) => { return (x.Description == name); }))
+                {
+                    continue;
+                }
+
+                NetworkInterface adapter = interfaces.Single((x) => { return (x.Description == name); });
+                if (!(adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet || adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211))
+                {
+                    continue;
+                }
+
+                var pc = new PerformanceCounter("Network Interface", counterName, name);
+                ret.Add(pc);
+            }
+
+            return ret.ToArray();
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -117,7 +149,7 @@ namespace WindowsFormsApplication1
         {
             FontDialog fd = new FontDialog();
 
-            fd.Font = Font;
+            fd.Font = CPUInfo.Font;
             fd.Color = ForeColor;
             fd.MaxSize = 20;
             fd.MinSize = 10;
@@ -127,47 +159,25 @@ namespace WindowsFormsApplication1
             fd.ShowEffects = false;
             fd.FixedPitchOnly = false;
             fd.AllowVectorFonts = true;
-            fd.ShowDialog();
+            if (fd.ShowDialog() != DialogResult.OK)
+            {
+                return null;
+            }
 
             return fd;
         }
 
-        private PerformanceCounter[] CreateNetworkCounters(string counterName)
-        {
-            var ret = new List<PerformanceCounter>();
 
-            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
-            // DEBUG
-            foreach (var adapter in interfaces)
-            {
-                Console.WriteLine(adapter.Description);
-            }
-
-            var pcc = new PerformanceCounterCategory("Network Interface");
-            foreach (string name in pcc.GetInstanceNames())
-            {
-                if (!interfaces.Any((x) => { return (x.Description == name); }))
-                {
-                    continue;
-                }
-
-                NetworkInterface adapter = interfaces.Single((x) => { return (x.Description == name); });
-                if (!(adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet || adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211))
-                {
-                    continue;
-                }
-
-                var pc = new PerformanceCounter("Network Interface", counterName, name);
-                ret.Add(pc);
-            }
-
-            return ret.ToArray();
-        }
 
         //ボタンをクリックした時にフォントダイアログを表示して変更内容をラベルに反映
         private void FontChange_btn_Click(object sender, EventArgs e)
         {
             FontDialog fd = ShowFontDialog();
+            if (fd == null)
+            {
+                return;
+            }
+
             CPUInfo.Font = fd.Font;
             CPU.Font = fd.Font;
             MEM.Font = fd.Font;
