@@ -39,7 +39,30 @@ namespace WindowsFormsApplication1
             // DEBUG
             foreach (var adapter in interfaces)
             {
-                Console.WriteLine(adapter.Description);
+                NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+               
+                if (adapter.OperationalStatus == OperationalStatus.Up)
+                {
+                    Console.WriteLine(adapter.Description);
+
+                    IPInterfaceProperties ip_prop = adapter.GetIPProperties();
+
+                    UnicastIPAddressInformationCollection addrs = ip_prop.UnicastAddresses;
+                    foreach (UnicastIPAddressInformation addr in addrs)
+                    {
+                        if (addr.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            Console.WriteLine(addr.Address.ToString());
+                            Console.WriteLine();
+                        }
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(adapter.Description);
+                    Console.WriteLine();
+                }
             }
 
             var pcc = new PerformanceCounterCategory("Network Interface");
@@ -59,6 +82,7 @@ namespace WindowsFormsApplication1
                 var pc = new PerformanceCounter("Network Interface", counterName, name);
                 ret.Add(pc);
             }
+
 
             return ret.ToArray();
         }
