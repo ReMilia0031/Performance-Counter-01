@@ -137,6 +137,11 @@ namespace WindowsFormsApplication1
             var ret = new List<PerformanceCounter>();
 
             NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+            // DEBUG
+            foreach (var adapter in interfaces)
+            {
+                Console.WriteLine(adapter.Description);
+            }
 
             var pcc = new PerformanceCounterCategory("Network Interface");
             foreach (string name in pcc.GetInstanceNames())
