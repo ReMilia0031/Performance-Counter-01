@@ -151,7 +151,8 @@ namespace WindowsFormsApplication1
                     continue;
                 }
 
-                if (!interfaces.Any((x) => { return (x.NetworkInterfaceType == NetworkInterfaceType.Ethernet || x.NetworkInterfaceType == NetworkInterfaceType.Wireless80211); }))
+                NetworkInterface adapter = interfaces.Single((x) => { return (x.Description == name); });
+                if (!(adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet || adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211))
                 {
                     continue;
                 }
