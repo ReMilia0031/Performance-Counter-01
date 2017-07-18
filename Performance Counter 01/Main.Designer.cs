@@ -47,7 +47,6 @@
             this.Disk_Col_btn = new System.Windows.Forms.Button();
             this.Net_Col_btn = new System.Windows.Forms.Button();
             this.Time_Col_btn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CPUInfo
@@ -119,6 +118,7 @@
             this.Time.Size = new System.Drawing.Size(62, 26);
             this.Time.TabIndex = 8;
             this.Time.Text = "Time";
+            this.Time.Click += new System.EventHandler(this.Time_Click);
             this.Time.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_MouseDown);
             this.Time.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label_MouseMove);
             // 
@@ -232,23 +232,12 @@
             this.Time_Col_btn.UseVisualStyleBackColor = true;
             this.Time_Col_btn.Click += new System.EventHandler(this.Time_Color_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(8, 385);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 19);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Setting";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(527, 416);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.Time_Col_btn);
             this.Controls.Add(this.Net_Col_btn);
             this.Controls.Add(this.Disk_Col_btn);
@@ -296,7 +285,6 @@
         private System.Windows.Forms.Button Disk_Col_btn;
         private System.Windows.Forms.Button Net_Col_btn;
         private System.Windows.Forms.Button Time_Col_btn;
-        private System.Windows.Forms.Button button1;
     }
 }
 

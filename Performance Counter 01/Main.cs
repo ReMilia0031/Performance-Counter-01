@@ -16,7 +16,6 @@ namespace WindowsFormsApplication1
         private PerformanceCounter pcMem;
         private PerformanceCounter pcDisk;
         private PerformanceCounter pcNW;
-        private PerformanceCounter[] pcNWs;
 
         public Main()
         {
@@ -30,74 +29,49 @@ namespace WindowsFormsApplication1
             Net.ForeColor = Color.FromArgb(0x3f, 0x3f, 0xff);
             Time.ForeColor = Color.FromArgb(0x3f, 0xff, 0xff);
         }
-        //ネットワークアダプタのふるい分け
-        private PerformanceCounter[] CreateNetworkCounters(string counterName)
-        {
-            var ret = new List<PerformanceCounter>();
-
-            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
-            // DEBUG
-            foreach (var adapter in interfaces)
-            {
-                NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
-               
-                if (adapter.OperationalStatus == OperationalStatus.Up)
-                {
-                    Console.WriteLine(adapter.Description);
-
-                    IPInterfaceProperties ip_prop = adapter.GetIPProperties();
-
-                    UnicastIPAddressInformationCollection addrs = ip_prop.UnicastAddresses;
-                    foreach (UnicastIPAddressInformation addr in addrs)
-                    {
-                        if (addr.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                        {
-                            Console.WriteLine(addr.Address.ToString());
-                            Console.WriteLine();
-                        }
-
-                    }
-                }
-                else
-                {
-                    Console.WriteLine(adapter.Description);
-                    Console.WriteLine();
-                }
-            }
-
-            var pcc = new PerformanceCounterCategory("Network Interface");
-            foreach (string name in pcc.GetInstanceNames())
-            {
-                if (!interfaces.Any((x) => { return (x.Description == name); }))
-                {
-                    continue;
-                }
-
-                NetworkInterface adapter = interfaces.Single((x) => { return (x.Description == name); });
-                if (!(adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet || adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211))
-                {
-                    continue;
-                }
-
-                var pc = new PerformanceCounter("Network Interface", counterName, name);
-                ret.Add(pc);
-            }
-
-
-            return ret.ToArray();
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // NICの種類 "Ethernet" と "Wireless80211" をコンボボックスに追加
-            // パフォーマンスカウンタがNDISとVirtualなんちゃらってのが対応してないらしいから追加しない
-            pcNWs = CreateNetworkCounters("Bytes Total/sec");
-            foreach (PerformanceCounter nw in pcNWs)
-            {
-                string name = nw.InstanceName;
-                NIC_ListBox.Items.Add(nw.InstanceName);
-            }
+            // NICをコンボボックスに追加
 
+            NetworkInterface[] interfaces = NetworkInterface.GetAllNetworkInterfaces();
+
+            Console.WriteLine(Environment.NewLine + "[INFO] リスト追加開始。" + Environment.NewLine);
+            foreach (NetworkInterface adapter in interfaces)
+            {
+                string NICName = adapter.Name;
+                string NICDesc = adapter.Description.ToString();
+                string NICType = adapter.NetworkInterfaceType.ToString();
+                string NICSpeed = (adapter.Speed / 1000000).ToString(); // Mbps
+                string NICAddr = adapter.GetPhysicalAddress().ToString(); //MAC 使うかなコレ
+
+                Console.WriteLine("=====================================");
+                // アダプタ列挙してコンソール垂れ流し
+                    if (adapter.Name == adapter.Description)
+                    {
+                        Console.WriteLine("InterfaceName : " + NICName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("InterfaceName : " + NICName);
+                        Console.WriteLine("InterfaceDesc : " + NICDesc);
+                    }
+                    Console.WriteLine("InterfaceType : " + NICType);
+
+                // NICをコンボボックスにぽいぽい
+                    // NDISとか付いてるのは無視
+                    // 選択不能はグレーアウト出来たらおもしろそうだけど
+                    if (NICDesc.Contains("NDIS") || NICDesc.Contains("Virtual") || NICDesc.Contains("Bluetooth") || NICType.Contains("Tunnel") || NICType.Contains("Loop"))
+                    {
+                        Console.WriteLine("-------------------------------------" + Environment.NewLine + "[INFO] " + NICDesc + " は未対応です。" + Environment.NewLine);
+                        continue;
+                    }
+                NIC_ListBox.Items.Add(string.Format(NICDesc));
+                Console.WriteLine("-------------------------------------" + Environment.NewLine + "[INFO] " + NICDesc + " をリストに追加しました。" + Environment.NewLine);
+            }            
+            Console.WriteLine(Environment.NewLine + "[INFO] リスト追加終わり。" + Environment.NewLine);
+            NetworkInterface[] nicList = NetworkInterface.GetAllNetworkInterfaces();
+            
             NIC_ListBox.SelectedIndex = 0;
 
             // パフォーマンスカウンタから取得するためのアイテムの指定
@@ -162,14 +136,17 @@ namespace WindowsFormsApplication1
 
         }
 
-        // コンボボックスで選択したNICを表示に反映するアレ
-        private void NIC_ListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            pcNW = pcNWs.Single((x) => { return x.InstanceName == NIC_ListBox.SelectedItem.ToString(); });
-        }
+        // コンボボックスで選択したNICを表示に反映するアレ        
+         private void NIC_ListBox_SelectedIndexChanged(object sender, EventArgs e)
+         {
+             string catNW = "Network Interface";
+             string countNW = "Bytes Total/sec";
+             string instanceNW = NIC_ListBox.SelectedItem.ToString();
+             pcNW = new PerformanceCounter(catNW, countNW, instanceNW);
+         }
 
-        // フォントの設定
-        private FontDialog ShowFontDialog()
+    // フォントの設定
+    private FontDialog ShowFontDialog()
         {
             FontDialog fd = new FontDialog();
 
@@ -190,8 +167,6 @@ namespace WindowsFormsApplication1
 
             return fd;
         }
-
-
 
         //ボタンをクリックした時にフォントダイアログを表示して変更内容をラベルに反映
         private void FontChange_btn_Click(object sender, EventArgs e)
@@ -379,6 +354,11 @@ namespace WindowsFormsApplication1
         {
             SettingWindow setting = new SettingWindow();
             setting.ShowDialog();
+        }
+
+        private void Time_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
