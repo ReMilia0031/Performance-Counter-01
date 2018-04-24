@@ -32,7 +32,7 @@
             this.CPUInfo = new System.Windows.Forms.Label();
             this.CPU = new System.Windows.Forms.Label();
             this.MEM = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.Disk = new System.Windows.Forms.Label();
             this.Net = new System.Windows.Forms.Label();
             this.Time = new System.Windows.Forms.Label();
@@ -47,6 +47,10 @@
             this.Disk_Col_btn = new System.Windows.Forms.Button();
             this.Net_Col_btn = new System.Windows.Forms.Button();
             this.Time_Col_btn = new System.Windows.Forms.Button();
+            this.Setting_btn = new System.Windows.Forms.Button();
+            this.GPU_ListBox = new System.Windows.Forms.ComboBox();
+            this.GPU = new System.Windows.Forms.Label();
+            this.GPU_Col_btn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CPUInfo
@@ -58,8 +62,8 @@
             this.CPUInfo.Size = new System.Drawing.Size(94, 26);
             this.CPUInfo.TabIndex = 0;
             this.CPUInfo.Text = "CPUInfo";
-            this.CPUInfo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_MouseDown);
-            this.CPUInfo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label_MouseMove);
+            this.CPUInfo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_MouseDown);
+            this.CPUInfo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_MouseMove);
             // 
             // CPU
             // 
@@ -70,8 +74,8 @@
             this.CPU.Size = new System.Drawing.Size(54, 26);
             this.CPU.TabIndex = 1;
             this.CPU.Text = "CPU";
-            this.CPU.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_MouseDown);
-            this.CPU.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label_MouseMove);
+            this.CPU.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_MouseDown);
+            this.CPU.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_MouseMove);
             // 
             // MEM
             // 
@@ -82,8 +86,8 @@
             this.MEM.Size = new System.Drawing.Size(59, 26);
             this.MEM.TabIndex = 2;
             this.MEM.Text = "MEM";
-            this.MEM.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_MouseDown);
-            this.MEM.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label_MouseMove);
+            this.MEM.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_MouseDown);
+            this.MEM.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_MouseMove);
             // 
             // Disk
             // 
@@ -94,8 +98,8 @@
             this.Disk.Size = new System.Drawing.Size(55, 26);
             this.Disk.TabIndex = 3;
             this.Disk.Text = "Disk";
-            this.Disk.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_MouseDown);
-            this.Disk.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label_MouseMove);
+            this.Disk.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_MouseDown);
+            this.Disk.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_MouseMove);
             // 
             // Net
             // 
@@ -106,27 +110,26 @@
             this.Net.Size = new System.Drawing.Size(48, 26);
             this.Net.TabIndex = 4;
             this.Net.Text = "Net";
-            this.Net.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_MouseDown);
-            this.Net.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label_MouseMove);
+            this.Net.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_MouseDown);
+            this.Net.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_MouseMove);
             // 
             // Time
             // 
             this.Time.AutoSize = true;
             this.Time.Font = new System.Drawing.Font("Meiryo UI", 15.75F);
-            this.Time.Location = new System.Drawing.Point(12, 272);
+            this.Time.Location = new System.Drawing.Point(12, 337);
             this.Time.Name = "Time";
             this.Time.Size = new System.Drawing.Size(62, 26);
             this.Time.TabIndex = 8;
             this.Time.Text = "Time";
-            this.Time.Click += new System.EventHandler(this.Time_Click);
-            this.Time.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_MouseDown);
-            this.Time.MouseMove += new System.Windows.Forms.MouseEventHandler(this.label_MouseMove);
+            this.Time.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_MouseDown);
+            this.Time.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_MouseMove);
             // 
             // NIC_ListBox
             // 
             this.NIC_ListBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NIC_ListBox.FormattingEnabled = true;
-            this.NIC_ListBox.Location = new System.Drawing.Point(246, 359);
+            this.NIC_ListBox.Location = new System.Drawing.Point(246, 416);
             this.NIC_ListBox.Name = "NIC_ListBox";
             this.NIC_ListBox.Size = new System.Drawing.Size(269, 20);
             this.NIC_ListBox.TabIndex = 9;
@@ -134,7 +137,7 @@
             // 
             // Interval
             // 
-            this.Interval.Location = new System.Drawing.Point(106, 360);
+            this.Interval.Location = new System.Drawing.Point(106, 417);
             this.Interval.Name = "Interval";
             this.Interval.Size = new System.Drawing.Size(100, 19);
             this.Interval.TabIndex = 11;
@@ -142,7 +145,7 @@
             // 
             // FontChange_btn
             // 
-            this.FontChange_btn.Location = new System.Drawing.Point(8, 360);
+            this.FontChange_btn.Location = new System.Drawing.Point(8, 417);
             this.FontChange_btn.Name = "FontChange_btn";
             this.FontChange_btn.Size = new System.Drawing.Size(75, 19);
             this.FontChange_btn.TabIndex = 10;
@@ -153,7 +156,7 @@
             // Trans_box
             // 
             this.Trans_box.AutoSize = true;
-            this.Trans_box.Location = new System.Drawing.Point(17, 338);
+            this.Trans_box.Location = new System.Drawing.Point(17, 395);
             this.Trans_box.Name = "Trans_box";
             this.Trans_box.Size = new System.Drawing.Size(53, 16);
             this.Trans_box.TabIndex = 12;
@@ -164,7 +167,7 @@
             // ForeGround_box
             // 
             this.ForeGround_box.AutoSize = true;
-            this.ForeGround_box.Location = new System.Drawing.Point(106, 338);
+            this.ForeGround_box.Location = new System.Drawing.Point(106, 395);
             this.ForeGround_box.Name = "ForeGround_box";
             this.ForeGround_box.Size = new System.Drawing.Size(75, 16);
             this.ForeGround_box.TabIndex = 13;
@@ -224,7 +227,7 @@
             // 
             // Time_Col_btn
             // 
-            this.Time_Col_btn.Location = new System.Drawing.Point(8, 301);
+            this.Time_Col_btn.Location = new System.Drawing.Point(8, 366);
             this.Time_Col_btn.Name = "Time_Col_btn";
             this.Time_Col_btn.Size = new System.Drawing.Size(98, 23);
             this.Time_Col_btn.TabIndex = 19;
@@ -232,12 +235,58 @@
             this.Time_Col_btn.UseVisualStyleBackColor = true;
             this.Time_Col_btn.Click += new System.EventHandler(this.Time_Color_Click);
             // 
+            // Setting_btn
+            // 
+            this.Setting_btn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.Setting_btn.Location = new System.Drawing.Point(8, 442);
+            this.Setting_btn.Name = "Setting_btn";
+            this.Setting_btn.Size = new System.Drawing.Size(75, 19);
+            this.Setting_btn.TabIndex = 33;
+            this.Setting_btn.Text = "設定";
+            this.Setting_btn.UseVisualStyleBackColor = true;
+            this.Setting_btn.Click += new System.EventHandler(this.Setting_btn_Click);
+            // 
+            // GPU_ListBox
+            // 
+            this.GPU_ListBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GPU_ListBox.FormattingEnabled = true;
+            this.GPU_ListBox.Location = new System.Drawing.Point(106, 442);
+            this.GPU_ListBox.Name = "GPU_ListBox";
+            this.GPU_ListBox.Size = new System.Drawing.Size(409, 20);
+            this.GPU_ListBox.TabIndex = 34;
+            this.GPU_ListBox.SelectedIndexChanged += new System.EventHandler(this.GPU_ListBox_SelectedIndexChanged);
+            // 
+            // GPU
+            // 
+            this.GPU.AutoSize = true;
+            this.GPU.Font = new System.Drawing.Font("Meiryo UI", 15.75F);
+            this.GPU.Location = new System.Drawing.Point(12, 282);
+            this.GPU.Name = "GPU";
+            this.GPU.Size = new System.Drawing.Size(55, 26);
+            this.GPU.TabIndex = 8;
+            this.GPU.Text = "GPU";
+            this.GPU.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Label_MouseDown);
+            this.GPU.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Label_MouseMove);
+            // 
+            // GPU_Col_btn
+            // 
+            this.GPU_Col_btn.Location = new System.Drawing.Point(8, 311);
+            this.GPU_Col_btn.Name = "GPU_Col_btn";
+            this.GPU_Col_btn.Size = new System.Drawing.Size(98, 23);
+            this.GPU_Col_btn.TabIndex = 19;
+            this.GPU_Col_btn.Text = "GPU Color";
+            this.GPU_Col_btn.UseVisualStyleBackColor = true;
+            this.GPU_Col_btn.Click += new System.EventHandler(this.GPU_Color_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(527, 416);
+            this.ClientSize = new System.Drawing.Size(527, 542);
+            this.Controls.Add(this.GPU_ListBox);
+            this.Controls.Add(this.Setting_btn);
+            this.Controls.Add(this.GPU_Col_btn);
             this.Controls.Add(this.Time_Col_btn);
             this.Controls.Add(this.Net_Col_btn);
             this.Controls.Add(this.Disk_Col_btn);
@@ -249,6 +298,7 @@
             this.Controls.Add(this.Interval);
             this.Controls.Add(this.FontChange_btn);
             this.Controls.Add(this.NIC_ListBox);
+            this.Controls.Add(this.GPU);
             this.Controls.Add(this.Time);
             this.Controls.Add(this.Net);
             this.Controls.Add(this.Disk);
@@ -258,8 +308,8 @@
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Main";
-            this.Text = "Performance Counter 01";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "ぱふぉーまんす かうんた | 実験中やで！";
+            this.Load += new System.EventHandler(this.Initialize);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,7 +320,7 @@
         private System.Windows.Forms.Label CPUInfo;
         private System.Windows.Forms.Label CPU;
         private System.Windows.Forms.Label MEM;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Timer1;
         private System.Windows.Forms.Label Disk;
         private System.Windows.Forms.Label Net;
         private System.Windows.Forms.Label Time;
@@ -285,6 +335,10 @@
         private System.Windows.Forms.Button Disk_Col_btn;
         private System.Windows.Forms.Button Net_Col_btn;
         private System.Windows.Forms.Button Time_Col_btn;
+        private System.Windows.Forms.Button Setting_btn;
+        private System.Windows.Forms.ComboBox GPU_ListBox;
+        private System.Windows.Forms.Label GPU;
+        private System.Windows.Forms.Button GPU_Col_btn;
     }
 }
 

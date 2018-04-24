@@ -138,7 +138,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Interval.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="FontChange_btn.Location" type="System.Drawing.Point, System.Drawing">
     <value>314, 103</value>
@@ -162,13 +162,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;FontChange_btn.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="NIC_ListBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>151, 151</value>
   </data>
   <data name="NIC_ListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>269, 20</value>
+    <value>175, 20</value>
   </data>
   <data name="NIC_ListBox.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -183,7 +183,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;NIC_ListBox.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -210,7 +210,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -237,7 +237,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -261,7 +261,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -288,7 +288,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="ForeGround_box.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -312,7 +312,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ForeGround_box.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -339,7 +339,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="Time_Col_btn.Location" type="System.Drawing.Point, System.Drawing">
     <value>291, 66</value>
@@ -363,7 +363,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Time_Col_btn.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="Net_Col_btn.Location" type="System.Drawing.Point, System.Drawing">
     <value>151, 66</value>
@@ -387,7 +387,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Net_Col_btn.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="Disk_Col_btn.Location" type="System.Drawing.Point, System.Drawing">
     <value>291, 37</value>
@@ -411,7 +411,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Disk_Col_btn.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="MEM_Col_btn.Location" type="System.Drawing.Point, System.Drawing">
     <value>151, 37</value>
@@ -435,7 +435,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;MEM_Col_btn.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="CPU_Col_btn.Location" type="System.Drawing.Point, System.Drawing">
     <value>291, 8</value>
@@ -459,7 +459,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CPU_Col_btn.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="CPUInfo_Col_btn.Location" type="System.Drawing.Point, System.Drawing">
     <value>151, 8</value>
@@ -483,7 +483,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CPUInfo_Col_btn.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -510,7 +510,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Cancel_btn.Location" type="System.Drawing.Point, System.Drawing">
     <value>291, 182</value>
@@ -534,7 +534,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Cancel_btn.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="OK_btn.Location" type="System.Drawing.Point, System.Drawing">
     <value>151, 182</value>
@@ -558,8 +558,39 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;OK_btn.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="NIC_info.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="NIC_info.Location" type="System.Drawing.Point, System.Drawing">
+    <value>332, 151</value>
+  </data>
+  <data name="NIC_info.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 19</value>
+  </data>
+  <data name="NIC_info.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="NIC_info.Text" xml:space="preserve">
+    <value>詳細</value>
+  </data>
+  <data name="&gt;&gt;NIC_info.Name" xml:space="preserve">
+    <value>NIC_info</value>
+  </data>
+  <data name="&gt;&gt;NIC_info.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NIC_info.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NIC_info.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="base_timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -567,10 +598,16 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>432, 213</value>
+    <value>429, 213</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Setting</value>
+    <value>設定 | まだ動かんで！</value>
+  </data>
+  <data name="&gt;&gt;base_timer.Name" xml:space="preserve">
+    <value>base_timer</value>
+  </data>
+  <data name="&gt;&gt;base_timer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SettingWindow</value>
